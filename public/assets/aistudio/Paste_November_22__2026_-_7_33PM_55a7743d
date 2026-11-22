@@ -1,0 +1,1143 @@
+# MASTER PROMPT: BUILD SMART INVENTORY AI – ADVANCED ANDROID INVENTORY MANAGEMENT SYSTEM
+
+## 1. PROJECT OVERVIEW
+
+Act as a senior Android application developer, AI computer vision engineer, database architect, UI/UX designer, and inventory management specialist.
+
+Your task is to design and develop a complete, professional Android application called **SMART INVENTORY AI**.
+
+The application must provide an intelligent inventory management and stock-taking solution suitable for different business environments, including:
+
+- Lounges and bars
+- Hotels and restaurants
+- Hospitals and pharmacies
+- Supermarkets and retail shops
+- Warehouses and distribution centers
+- Timber suppliers
+- Roofing sheet suppliers
+- Hardware stores
+- Construction material suppliers
+- Factories and manufacturing companies
+- Beverage distributors
+- General merchandise businesses
+- Any other business category added by the user.
+
+The application must allow users to create their own business categories, customize business names, add unlimited products, manage multiple storage locations, and configure their inventory according to their business operations.
+
+This must be a real, functional application, not just a visual prototype.
+
+All major features must work, including AI camera recognition, product-specific counting, stock adjustments, inventory calculations, incoming stock, damaged stock deductions, and report generation.
+
+---
+
+# 2. BUSINESS REGISTRATION AND CUSTOMIZATION
+
+Create an intelligent business setup system.
+
+When users open the application for the first time, they should be able to register their business.
+
+### Business registration fields
+
+- Business name
+- Business category
+- Business location
+- Business address
+- Contact information
+- Business logo
+- Currency
+- Business registration number (optional)
+- Number of branches
+- Inventory management preferences
+
+### Supported business categories
+
+Provide predefined categories:
+
+1. Bar and Lounge
+2. Hotel
+3. Restaurant
+4. Hospital
+5. Pharmacy
+6. Supermarket
+7. Retail Shop
+8. Warehouse
+9. Timber Supplier
+10. Roofing Sheet Supplier
+11. Hardware Store
+12. Factory
+13. Distribution Company
+14. Construction Materials
+15. Other.
+
+### Custom business categories
+
+Include an option called ADD CUSTOM BUSINESS CATEGORY.
+
+Users must be able to:
+- Create their own category.
+- Enter their business name.
+- Add their own product types.
+- Create custom inventory fields.
+- Configure units of measurement.
+- Add custom stock-taking procedures.
+- Change business information whenever necessary.
+
+The system must not restrict users to predefined business types.
+
+---
+
+# 3. ADVANCED AI CAMERA STOCK COUNTING
+
+This is one of the most important features of the application.
+
+Develop an intelligent camera-based stock-counting system using computer vision and AI object recognition.
+
+The camera must recognize products based on their exact identity, brand, packaging, and configured recognition profile.
+
+## 3.1 Product-specific scanning
+
+The user must first select the product they want to count.
+
+For example:
+
+Selected product: BONITE SODA.
+
+The camera opens and starts recognizing products.
+
+Expected behavior:
+
+- If the camera detects Bonite soda, count it.
+- If the camera detects Pepsi, ignore it.
+- If the camera detects Coca-Cola, ignore it.
+- If the camera detects another beverage, ignore it.
+- Only the selected Bonite product can increase the count.
+
+The application must never count every bottle in the camera frame indiscriminately.
+
+### Example: Wine counting
+
+Selected product: BRAND A RED WINE.
+
+The camera must:
+
+- Recognize Brand A Red Wine.
+- Count only Brand A Red Wine.
+- Ignore Brand B wine.
+- Ignore whiskey bottles.
+- Ignore beer bottles.
+- Ignore soda bottles.
+- Ignore other products even when they appear in the same frame.
+
+The user must be able to repeat this process for every product in the inventory.
+
+## 3.2 Product recognition technology
+
+Implement a combination of:
+
+- AI object detection.
+- Image classification.
+- Optical character recognition (OCR).
+- Barcode recognition.
+- QR code recognition.
+- Product packaging recognition.
+- Brand and label recognition.
+- Custom-trained product recognition models.
+
+Recommended technologies:
+- Google ML Kit.
+- TensorFlow Lite or LiteRT.
+- CameraX.
+- OpenCV.
+- Custom machine learning models.
+
+Use appropriate technologies together rather than relying on one recognition method.
+
+## 3.3 Custom product training
+
+Allow administrators to train the application to recognize products that are not already in its database.
+
+For example:
+
+A user adds a new product called:
+
+PRODUCT: KILIMANJARO WATER 1.5L.
+
+The user can:
+1. Open product registration.
+2. Take several pictures of the product.
+3. Capture the front, back, sides, and packaging.
+4. Enter the product name.
+5. Enter the brand.
+6. Enter the size.
+7. Save the product.
+8. Use it for AI recognition.
+
+The system should build a recognition profile for that product.
+
+Allow administrators to improve recognition using additional photographs when necessary.
+
+Do not claim that a newly registered product can be recognized perfectly without training or validation.
+
+## 3.4 Bottle cap detection
+
+Implement a bottle-condition recognition feature.
+
+For businesses such as bars and lounges, bottles without caps must be excluded from the stock count when the administrator enables the capped-bottle counting rule.
+
+Examples:
+
+- Bonite bottle with cap: COUNT.
+- Bonite bottle without cap: IGNORE.
+- Pepsi bottle with cap: IGNORE when Bonite is selected.
+- Pepsi bottle without cap: IGNORE.
+- Other brands: IGNORE.
+
+Important:
+
+The application must distinguish between a bottle being present and a bottle being eligible for counting.
+
+Provide separate configuration options for:
+- Count only sealed bottles.
+- Count capped bottles.
+- Count all physically present bottles.
+- Count open bottles separately.
+
+Do not automatically treat every uncapped bottle as empty or damaged.
+
+If the camera cannot clearly determine whether a cap exists, request manual verification instead of making an unreliable assumption.
+
+## 3.5 Prevent duplicate counting
+
+The camera must avoid counting the same physical object repeatedly.
+
+Implement:
+- Object tracking.
+- Detection confidence thresholds.
+- Frame-to-frame tracking.
+- Duplicate detection prevention.
+- Temporary object tracking IDs.
+- Manual correction.
+
+When an object remains in front of the camera, it must not continuously increase the count.
+
+A previously counted object should only become countable again after it leaves the detection area or the user explicitly resets the counting session.
+
+## 3.6 Counting interface
+
+When the user selects a product, display:
+
+- Product photograph.
+- Product name.
+- Brand.
+- Product size.
+- Current inventory quantity.
+- Live camera preview.
+- AI recognition status.
+- Detection confidence.
+- Automatically detected quantity.
+- Manual adjustment buttons.
+- Undo button.
+- Reset button.
+- DONE button.
+
+Example:
+
+Selected product: BONITE SODA 500ML
+
+AI COUNT: 24
+
+MANUAL ADJUSTMENT: + / -
+
+[UNDO] [RESET] [DONE]
+
+When the user presses DONE:
+
+1. Stop the current counting session.
+2. Save the verified quantity.
+3. Populate the selected product's stock-taking field.
+4. Allow manual editing.
+5. Save the final confirmed quantity.
+6. Return to the product selection screen.
+7. Allow the user to select the next product.
+
+Every product must have its own separate counting record.
+
+Never mix quantities from different brands or product categories.
+
+---
+
+# 4. INVENTORY MANAGEMENT DASHBOARD
+
+Create a professional dashboard displaying the complete inventory status.
+
+### Dashboard information
+
+- Total registered products.
+- Total stock quantity.
+- Total stock value.
+- Available stock.
+- Low-stock products.
+- Out-of-stock products.
+- Damaged products.
+- Expired products.
+- Incoming stock.
+- Outgoing stock.
+- Pending stock-taking sessions.
+- Last stock-taking date.
+
+Provide visual cards and charts.
+
+The dashboard must update automatically whenever inventory transactions are recorded.
+
+---
+
+# 5. PRODUCT REGISTRATION AND MANAGEMENT
+
+Create a complete product registration system.
+
+### Product information
+
+Each product should support:
+
+- Product name.
+- Product image.
+- Brand.
+- SKU.
+- Barcode.
+- QR code.
+- Product category.
+- Product description.
+- Product size.
+- Unit of measurement.
+- Purchase price.
+- Selling price.
+- Current stock.
+- Minimum stock level.
+- Maximum stock level.
+- Supplier.
+- Storage location.
+- Expiration date, where applicable.
+- Batch number.
+- Product status.
+
+### Unit management
+
+Support:
+- Pieces.
+- Bottles.
+- Cartons.
+- Boxes.
+- Packs.
+- Kilograms.
+- Grams.
+- Litres.
+- Millilitres.
+- Metres.
+- Rolls.
+- Sheets.
+- Bags.
+- Pallets.
+- Custom units.
+
+Allow conversion rules.
+
+Example:
+
+1 carton = 24 bottles.
+
+When a user receives 5 cartons, the system should automatically calculate 120 bottles.
+
+Allow administrators to configure their own conversion rules.
+
+---
+
+# 6. STOCK-TAKING SYSTEM
+
+Create a complete stock-taking module.
+
+Users should be able to perform stock-taking through:
+
+1. AI camera counting.
+2. Barcode scanning.
+3. QR code scanning.
+4. Manual quantity entry.
+5. Spreadsheet import.
+
+### Stock-taking workflow
+
+Step 1: Select business branch or storage location.
+
+Step 2: Select product category.
+
+Step 3: Select the product.
+
+Step 4: Choose counting method.
+
+Step 5: Count the product.
+
+Step 6: Confirm the detected quantity.
+
+Step 7: Edit the quantity if necessary.
+
+Step 8: Press SAVE or DONE.
+
+Step 9: Continue with the next product.
+
+Step 10: Review the complete stock-taking session.
+
+Step 11: Submit and finalize the stock-taking session.
+
+### Stock comparison
+
+The system must compare:
+
+- Previous recorded stock.
+- Expected stock.
+- Physically counted stock.
+- Stock received.
+- Stock sold or issued.
+- Damaged stock.
+- Expired stock.
+- Missing stock.
+- Final stock balance.
+
+Calculate stock variances automatically.
+
+Example:
+
+Product: Bonite Soda 500ML
+
+Previous stock: 100
+
+Stock received: 50
+
+Stock issued: 30
+
+Expected stock: 120
+
+Physical count: 115
+
+Variance: -5
+
+Display the difference and allow the administrator to investigate it.
+
+---
+
+# 7. INCOMING STOCK MANAGEMENT
+
+Create a dedicated INCOMING STOCK module.
+
+This feature must record products received from:
+
+- Factories.
+- Central warehouses.
+- Suppliers.
+- Distributors.
+- Other branches.
+- Direct purchases.
+- Internal transfers.
+
+### Incoming stock form
+
+Include:
+
+- Receipt number.
+- Date received.
+- Supplier or source.
+- Product name.
+- Product brand.
+- Quantity received.
+- Unit of measurement.
+- Purchase price.
+- Batch number.
+- Expiration date.
+- Invoice number.
+- Received by.
+- Verified by.
+- Notes.
+- Product condition.
+
+### Incoming stock procedure
+
+1. Select the supplier or source.
+2. Select the product.
+3. Enter the quantity received.
+4. Verify the product.
+5. Record damaged or missing items separately.
+6. Confirm receipt.
+7. Automatically increase available inventory by the accepted quantity.
+
+Example:
+
+Previous stock: 100 bottles.
+
+Received from central warehouse: 50 bottles.
+
+Damaged during delivery: 2 bottles.
+
+Accepted incoming stock: 48 bottles.
+
+New stock balance: 148 bottles.
+
+Keep a permanent transaction history.
+
+Never increase inventory before the receipt has been confirmed.
+
+---
+
+# 8. BROKEN, DAMAGED, DROPPED AND EXPIRED STOCK
+
+Create a dedicated STOCK DAMAGE AND LOSS MANAGEMENT module.
+
+The application must allow employees to report products that are:
+
+- Broken.
+- Dropped.
+- Cracked.
+- Leaking.
+- Expired.
+- Spoiled.
+- Missing.
+- Contaminated.
+- Unusable.
+- Otherwise damaged.
+
+### Damage reporting form
+
+Include:
+
+- Product name.
+- Product image.
+- Product barcode.
+- Quantity damaged.
+- Damage type.
+- Date and time.
+- Location.
+- Employee reporting.
+- Description.
+- Photograph of the damage.
+- Supervisor approval.
+- Financial loss.
+
+### Automatic inventory deduction
+
+When a damage report is approved, the system must automatically deduct the approved quantity from available inventory.
+
+Example:
+
+Current stock: 100 bottles.
+
+Broken bottles: 3.
+
+New stock balance: 97 bottles.
+
+The application must create a permanent inventory transaction showing:
+
+- Original quantity.
+- Deducted quantity.
+- New balance.
+- Reason for deduction.
+- Person responsible.
+- Approval details.
+
+Prevent double deductions if the same damage report is submitted twice.
+
+### Expired stock
+
+Provide an expiration monitoring system.
+
+Features:
+- Expiration date tracking.
+- Batch tracking.
+- Near-expiration notifications.
+- Expired product identification.
+- Expired stock quarantine.
+- Approved expiration disposal.
+- Automatic inventory deduction after disposal approval.
+
+Never silently remove expired products from the inventory without recording the transaction.
+
+---
+
+# 9. OUTGOING STOCK MANAGEMENT
+
+Create a stock-out module for:
+
+- Sales.
+- Internal consumption.
+- Department issuance.
+- Transfers.
+- Returns.
+- Business operations.
+- Other authorized stock movements.
+
+Each transaction must record:
+
+- Product.
+- Quantity.
+- Destination.
+- Date.
+- Reason.
+- Employee.
+- Approval status.
+- Reference number.
+
+Automatically update the available stock after an approved stock-out transaction.
+
+Prevent stock quantities from becoming negative unless an administrator explicitly enables an authorized exception.
+
+---
+
+# 10. MULTI-BRANCH AND MULTI-LOCATION MANAGEMENT
+
+Allow businesses to manage multiple branches, departments, and storage locations.
+
+Examples:
+
+Hotel:
+- Main Store.
+- Bar.
+- Restaurant.
+- Kitchen.
+- Housekeeping.
+
+Hospital:
+- Main Pharmacy.
+- Emergency Department.
+- Laboratory.
+- Medical Supplies Store.
+
+Lounge:
+- Main Store.
+- Large Counter.
+- Small Counter.
+- Bar.
+- Kitchen.
+- Shisha Department.
+
+Timber supplier:
+- Main Warehouse.
+- Timber Yard.
+- Cutting Section.
+- Delivery Area.
+
+Each location must have its own inventory balance.
+
+Allow authorized users to transfer stock between locations.
+
+Transfers must have:
+- Sending location.
+- Receiving location.
+- Product.
+- Quantity.
+- Dispatch confirmation.
+- Receiving confirmation.
+- Transfer status.
+- Transaction history.
+
+---
+
+# 11. ADVANCED INVENTORY REPORTING
+
+Create a powerful reporting module.
+
+Reports must be accurate, detailed, searchable, and exportable.
+
+### Daily reports
+
+- Opening stock.
+- Incoming stock.
+- Outgoing stock.
+- Sales or consumption.
+- Damaged products.
+- Expired products.
+- Closing stock.
+- Stock discrepancies.
+
+### Weekly reports
+
+- Weekly stock movement.
+- Products received.
+- Products issued.
+- Damaged stock.
+- Stock losses.
+- Low-stock items.
+- Weekly stock valuation.
+
+### Monthly reports
+
+Generate comprehensive monthly inventory reports containing:
+
+1. Opening inventory balance.
+2. Total stock received.
+3. Total stock issued.
+4. Total products sold or consumed.
+5. Total damaged stock.
+6. Total expired stock.
+7. Total missing stock.
+8. Closing inventory balance.
+9. Stock discrepancies.
+10. Product valuation.
+11. Supplier performance.
+12. Inventory turnover.
+13. Most frequently moved products.
+14. Slow-moving products.
+15. Dead stock.
+16. Low-stock products.
+17. Out-of-stock products.
+18. Monthly stock loss valuation.
+
+Allow filtering by:
+- Date range.
+- Business category.
+- Branch.
+- Department.
+- Product.
+- Brand.
+- Supplier.
+- Employee.
+- Transaction type.
+
+### Report export
+
+Support:
+- PDF.
+- Excel (XLSX).
+- CSV.
+- Printable reports.
+
+Reports should include:
+- Business logo.
+- Business name.
+- Report title.
+- Reporting period.
+- Generated date.
+- Product tables.
+- Totals.
+- Charts.
+- Authorized signatures.
+- Prepared by.
+- Approved by.
+
+---
+
+# 12. VISUAL ANALYTICS AND CHARTS
+
+Build an advanced analytics dashboard.
+
+Use professional charts to visualize stock performance.
+
+Required visualizations:
+
+### A. Stock level chart
+Display stock levels over time.
+
+### B. Incoming versus outgoing stock
+Compare quantities received against quantities issued.
+
+### C. Damaged stock chart
+Show broken, dropped, expired, and other losses.
+
+### D. Monthly inventory comparison
+Compare inventory levels across months.
+
+### E. Product category distribution
+Show how inventory is distributed across categories.
+
+### F. Stock valuation chart
+Display the financial value of inventory over time.
+
+### G. Top-moving products
+Identify products with the highest stock movement.
+
+### H. Slow-moving products
+Identify products with little or no movement.
+
+### I. Stock variance chart
+Display differences between expected and physically counted inventory.
+
+Every chart must use actual inventory transaction data.
+
+Do not display fictional statistics.
+
+---
+
+# 13. NOTIFICATIONS AND ALERTS
+
+Create an intelligent notification system.
+
+Notifications should include:
+
+- Low-stock alerts.
+- Out-of-stock alerts.
+- Near-expiration alerts.
+- Expired-stock alerts.
+- New incoming stock.
+- Pending stock approvals.
+- Damage reports.
+- Stock discrepancies.
+- Unusual stock movements.
+- Incomplete stock-taking sessions.
+
+Allow administrators to configure notification thresholds.
+
+Support Android push notifications and in-app alerts.
+
+---
+
+# 14. USER ACCOUNTS AND PERMISSIONS
+
+Implement secure user authentication and role-based access control.
+
+### User roles
+
+**Super Administrator**
+- Complete system control.
+- Business configuration.
+- User management.
+- All inventory access.
+- Financial reports.
+- System settings.
+
+**Manager**
+- View inventory.
+- Approve incoming stock.
+- Approve damage reports.
+- Approve stock adjustments.
+- Generate reports.
+
+**Storekeeper**
+- Receive stock.
+- Perform stock-taking.
+- Transfer stock.
+- Report damaged items.
+
+**Employee**
+- View authorized products.
+- Record stock movements.
+- Report damages.
+- Perform assigned stock counts.
+
+**Auditor**
+- Read-only inventory access.
+- Review stock movements.
+- Review reports.
+- Investigate discrepancies.
+
+Record all important activities in an audit log.
+
+---
+
+# 15. DATABASE ARCHITECTURE
+
+Design a reliable database capable of managing large inventories.
+
+Recommended database structure:
+
+- Businesses
+- BusinessCategories
+- Branches
+- Departments
+- StorageLocations
+- Users
+- Roles
+- Permissions
+- Products
+- ProductCategories
+- ProductImages
+- ProductRecognitionProfiles
+- ProductBarcodes
+- Suppliers
+- StockBalances
+- StockTakingSessions
+- StockTakingItems
+- IncomingStock
+- OutgoingStock
+- StockTransfers
+- DamageReports
+- ExpiredStock
+- InventoryTransactions
+- ProductBatches
+- Notifications
+- Reports
+- AuditLogs
+- UnitsOfMeasurement
+- UnitConversions
+- SystemSettings
+
+### Important database rule
+
+Never update inventory quantities without recording the corresponding transaction.
+
+Every stock movement must have a permanent transaction record.
+
+Use database transactions to ensure that inventory updates and their history records are saved together.
+
+Prevent duplicate transaction submissions.
+
+Use proper indexing, validation, database migrations, backups, and recovery procedures.
+
+---
+
+# 16. ANDROID TECHNOLOGY STACK
+
+Build the application using a modern Android development architecture.
+
+Recommended technologies:
+
+- Kotlin.
+- Jetpack Compose.
+- Material 3.
+- CameraX.
+- Google ML Kit.
+- TensorFlow Lite / LiteRT.
+- OpenCV.
+- Room Database.
+- Kotlin Coroutines.
+- WorkManager.
+- Retrofit.
+- Firebase Cloud Messaging where cloud notifications are required.
+
+Support offline-first operation.
+
+Users must be able to:
+- Register products offline.
+- Perform stock-taking offline.
+- Record incoming stock offline.
+- Report damaged stock offline.
+- View saved reports.
+- Synchronize data when internet connectivity returns.
+
+Implement reliable synchronization and conflict resolution.
+
+Never allow offline synchronization to silently overwrite a newer stock transaction.
+
+---
+
+# 17. APPLICATION DESIGN AND USER INTERFACE
+
+Design a premium, modern, professional Android interface.
+
+The interface should feel like a commercial inventory management platform.
+
+### Design direction
+
+- Modern dashboard.
+- Professional typography.
+- Smooth animations.
+- Clean navigation.
+- Responsive layouts.
+- Professional data tables.
+- Attractive analytics.
+- Clear status indicators.
+- Well-designed forms.
+- Consistent icons.
+- Light and dark modes.
+
+### Main navigation
+
+Create the following navigation sections:
+
+1. Dashboard
+2. Products
+3. AI Camera
+4. Stock Taking
+5. Incoming Stock
+6. Outgoing Stock
+7. Damaged Stock
+8. Transfers
+9. Suppliers
+10. Reports
+11. Analytics
+12. Notifications
+13. Users
+14. Settings
+
+Use a bottom navigation bar for the most important sections and a navigation drawer or appropriate secondary navigation for the remaining features.
+
+---
+
+# 18. SECURITY AND DATA PROTECTION
+
+Implement:
+
+- Secure authentication.
+- Role-based permissions.
+- Encrypted sensitive data.
+- Secure API communication.
+- Database backup.
+- Audit trails.
+- Session management.
+- Input validation.
+- Access restrictions.
+- Secure file storage.
+
+Provide a mechanism for restoring backups.
+
+Do not expose sensitive business information to unauthorized users.
+
+---
+
+# 19. TESTING AND QUALITY ASSURANCE
+
+The application must be tested thoroughly.
+
+### AI recognition tests
+
+Test the following situations:
+
+1. One selected product among different brands.
+2. Multiple identical products in one frame.
+3. Different products overlapping.
+4. Partially hidden products.
+5. Products with different packaging.
+6. Products with damaged labels.
+7. Bottles with caps.
+8. Bottles without caps.
+9. Poor lighting.
+10. Camera movement.
+11. Duplicate detection.
+12. Products not registered in the database.
+
+### Inventory tests
+
+Verify:
+
+- Incoming stock increases inventory correctly.
+- Approved damaged stock reduces inventory correctly.
+- Expired stock disposal is recorded correctly.
+- Outgoing stock reduces inventory correctly.
+- Transfers update both locations correctly.
+- Physical stock-taking records the correct quantities.
+- Manual edits update the final count.
+- Monthly reports reconcile with transaction records.
+- Duplicate submissions do not create duplicate deductions.
+
+### Performance tests
+
+Test on:
+- Low-end Android phones.
+- Mid-range Android phones.
+- High-end Android phones.
+- Different camera resolutions.
+- Devices with limited storage.
+- Devices with unreliable internet connectivity.
+
+---
+
+# 20. REQUIRED APPLICATION SCREENS
+
+Develop the following screens:
+
+1. Splash Screen.
+2. Welcome Screen.
+3. Registration Screen.
+4. Login Screen.
+5. Business Setup Screen.
+6. Main Dashboard.
+7. Product Registration.
+8. Product Details.
+9. Product Recognition Training.
+10. AI Camera Scanner.
+11. Product Counting Screen.
+12. Stock-Taking Session.
+13. Stock-Taking Summary.
+14. Incoming Stock Form.
+15. Incoming Stock History.
+16. Outgoing Stock Form.
+17. Damaged Stock Form.
+18. Expired Stock Management.
+19. Stock Transfer Screen.
+20. Supplier Management.
+21. Branch Management.
+22. Inventory Reports.
+23. Monthly Analytics.
+24. Notifications.
+25. User Management.
+26. Audit History.
+27. Application Settings.
+
+All screens must be connected through functional navigation.
+
+---
+
+# 21. DEVELOPMENT DELIVERABLES
+
+Do not stop at a concept, mockup, or demonstration.
+
+Deliver a complete Android Studio project.
+
+Include:
+
+- Complete Kotlin source code.
+- Jetpack Compose UI.
+- Database implementation.
+- Database schema.
+- AI recognition implementation.
+- Camera integration.
+- Product training functionality.
+- Inventory transaction engine.
+- Stock-taking functionality.
+- Reporting engine.
+- Analytics implementation.
+- Authentication.
+- Permission management.
+- Offline functionality.
+- Synchronization implementation.
+- Testing code.
+- Documentation.
+- Gradle configuration.
+- Required dependencies.
+- Android permissions.
+- Build instructions.
+
+Generate a working APK that can be installed on an Android device.
+
+Include the Android Studio project so the application can be modified and maintained.
+
+---
+
+# 22. CRITICAL DEVELOPMENT RULES
+
+These requirements are mandatory:
+
+1. Never build a camera that indiscriminately counts every object in the frame.
+2. Always count only the exact selected product.
+3. Ignore other brands and unrelated products.
+4. Prevent duplicate counting of the same physical object.
+5. Allow manual correction of AI-generated counts.
+6. Allow users to configure bottle-cap recognition rules.
+7. Provide a manual fallback whenever AI recognition is uncertain.
+8. Record every stock movement.
+9. Automatically deduct approved damaged stock.
+10. Automatically update stock after confirmed incoming and outgoing transactions.
+11. Preserve historical inventory records.
+12. Generate reports from actual database records.
+13. Support different business categories.
+14. Allow custom businesses and custom product categories.
+15. Support multiple branches and storage locations.
+16. Work without an internet connection for core inventory operations.
+17. Provide reliable synchronization.
+18. Protect business information through permissions and authentication.
+19. Ensure that every major button performs its intended action.
+20. Do not use fake data to simulate completed functionality in the production application.
+
+If a feature requires machine learning training, explain the training requirements and implement the necessary workflow instead of pretending the model already recognizes every product.
+
+---
+
+# 23. FINAL OBJECTIVE
+
+The final result must be a complete, intelligent, scalable, professional Android inventory management application.
+
+The application should be suitable for a small lounge, a large hotel, a hospital, a retail business, a timber supplier, a roofing sheet distributor, or a large warehouse.
+
+Its central feature must be intelligent product-specific AI stock counting.
+
+A user should be able to select a product, point the phone camera at multiple items, have the AI identify and count only that product, verify the quantity, press DONE, save the result, and immediately move to the next product.
+
+The application must also manage incoming stock, outgoing stock, broken products, dropped products, expired products, inventory adjustments, stock transfers, and comprehensive monthly reports.
+
+Build the system with professional architecture, accurate inventory calculations, attractive design, and reliable real-world functionality.
+
+**Start development from the project architecture and database design, then implement the application module by module. Test every module before moving to the next one. Do not skip essential features or replace working functionality with placeholders.**
